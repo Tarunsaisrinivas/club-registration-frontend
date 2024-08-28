@@ -1,5 +1,3 @@
-// frontend/src/components/StudentList.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -12,7 +10,7 @@ function StudentList() {
 
     const fetchStudents = async () => {
         try {
-            const response = await axios.get('https://club-registration-backend.vercel.app/api/students');
+            const response = await axios.get('https://srkrcodigclub-backend.vercel.app/api/students');
             setStudents(response.data);
         } catch (error) {
             console.error('Error fetching students:', error);
@@ -22,7 +20,7 @@ function StudentList() {
     const deleteStudent = async (id) => {
         if (window.confirm("Are you sure you want to delete this student?")) {
             try {
-                await axios.delete(`https://club-registration-backend.vercel.app/api/students/${id}`);
+                await axios.delete(`https://srkrcodigclub-backend.vercel.app/api/students/${id}`);
                 setStudents(students.filter(student => student._id !== id));
             } catch (error) {
                 console.error('Error deleting student:', error);
@@ -32,7 +30,7 @@ function StudentList() {
 
     const downloadPDF = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/students/download/pdf', {
+            const response = await axios.get('https://srkrcodigclub-backend.vercel.app/api/students/download/pdf', {
                 responseType: 'blob'
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -48,7 +46,7 @@ function StudentList() {
 
     const downloadExcel = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/students/download/excel', {
+            const response = await axios.get('https://srkrcodigclub-backend.vercel.app/api/students/download/excel', {
                 responseType: 'blob'
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -74,10 +72,12 @@ function StudentList() {
                             <th className="w-1/12 px-4 py-2 text-left">Year</th>
                             <th className="w-1/12 px-4 py-2 text-left">Branch</th>
                             <th className="w-1/12 px-4 py-2 text-left">Section</th>
+                            <th className="w-1/12 px-4 py-2 text-left">College Name</th>
                             <th className="w-1/12 px-4 py-2 text-left">Gender</th>
                             <th className="w-1/6 px-4 py-2 text-left">Mobile No.</th>
                             <th className="w-1/4 px-4 py-2 text-left">Email</th>
                             <th className="w-1/12 px-4 py-2 text-left">Payment</th>
+                            <th className="w-1/12 px-4 py-2 text-left">Transaction ID</th>
                             <th className="w-1/12 px-4 py-2 text-center">Actions</th>
                         </tr>
                     </thead>
@@ -89,10 +89,12 @@ function StudentList() {
                                     <td className="px-4 py-2">{student.year}</td>
                                     <td className="px-4 py-2">{student.branch}</td>
                                     <td className="px-4 py-2">{student.section}</td>
+                                    <td className="px-4 py-2">{student.collegeName}</td> 
                                     <td className="px-4 py-2">{student.gender}</td>
                                     <td className="px-4 py-2">{student.mobileNo}</td>
                                     <td className="px-4 py-2">{student.email}</td>
                                     <td className="px-4 py-2">{student.payment}</td>
+                                    <td className="px-4 py-2">{student.transactionId}</td>
                                     <td className="px-4 py-2 text-center">
                                         <button
                                             onClick={() => deleteStudent(student._id)}
@@ -105,7 +107,7 @@ function StudentList() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="9" className="px-4 py-4 text-center text-gray-500">
+                                <td colSpan="10" className="px-4 py-4 text-center text-gray-500">
                                     No students found
                                 </td>
                             </tr>

@@ -7,44 +7,68 @@ function StudentForm() {
     year: "",
     branch: "",
     section: "",
+    collegeName: "",
     gender: "",
     mobileNo: "",
     email: "",
     payment: "",
+    transactionId: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'mobileNo') {
-
-        if (value.length <= 10) {
-            setStudent({ ...student, [name]: value });
-        }
+    if (name === "mobileNo") {
+      if (value.length <= 10) {
+        setStudent({ ...student, [name]: value });
+      }
     } else {
-        setStudent({
-            ...student,
-            [name]: name === 'name' ? value.toUpperCase() : value
-        });
+      setStudent({
+        ...student,
+        [name]:
+          name === "collegeName" || name === "name"
+            ? value.toUpperCase()
+            : value,
+      });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create a copy of the student object to modify
+    let studentData = { ...student };
+
+    // If payment method is "Cash", remove the transactionId from the student data
+    if (student.payment === "Cash") {
+      delete studentData.transactionId;
+    }
+
     try {
-      await axios.post("https://club-registration-backend.vercel.app/api/students/add", student);
+      // Send the student data to the backend
+      await axios.post("https://srkrcodigclub-backend.vercel.app/api/students/add", studentData);
+
+      // Alert the user that the student was added successfully
       alert("Student added successfully!");
+
+      // Reset the form fields after successful submission
       setStudent({
         name: "",
         year: "",
         branch: "",
         section: "",
+        collegeName: "",
         gender: "",
         mobileNo: "",
         email: "",
         payment: "",
+        transactionId: "",
       });
     } catch (error) {
-      alert("Error adding student");
+      // Log the error to the console for debugging
+      console.error("Error adding data:", error);
+
+      // Alert the user about the error
+      alert("Error adding data");
     }
   };
 
@@ -59,6 +83,7 @@ function StudentForm() {
       <div className="mb-4">
         <label className="block text-gray-700">
           Student Name (As per SSC in Capital)
+          <span className="text-red-500">*</span>
         </label>
         <input
           name="name"
@@ -70,7 +95,10 @@ function StudentForm() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Year (I/II/III/IV)</label>
+        <label className="block text-gray-700">
+          Year (I/II/III/IV)
+          <span className="text-red-500">*</span>
+        </label>
         <select
           name="year"
           value={student.year}
@@ -88,7 +116,9 @@ function StudentForm() {
         </select>
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Branch</label>
+        <label className="block text-gray-700">
+          Branch<span className="text-red-500">*</span>
+        </label>
         <input
           name="branch"
           value={student.branch}
@@ -99,7 +129,24 @@ function StudentForm() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Section (A/B/C/D/E)</label>
+        <label className="block text-gray-700">
+          College Name<span className="text-red-500">*</span>
+        </label>
+        <input
+          name="collegeName"
+          value={student.collegeName}
+          onChange={handleChange}
+          placeholder="College Name"
+          className="w-full px-3 uppercase py-2 border border-gray-300 rounded-md"
+          required
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700">
+          Section (A/B/C/D/E)
+          <span className="text-red-500">*</span>
+        </label>
         <select
           name="section"
           value={student.section}
@@ -118,7 +165,10 @@ function StudentForm() {
         </select>
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Gender (M/F)</label>
+        <label className="block text-gray-700">
+          Gender (M/F)
+          <span className="text-red-500">*</span>
+        </label>
         <select
           name="gender"
           value={student.gender}
@@ -136,6 +186,7 @@ function StudentForm() {
       <div className="mb-4">
         <label className="block text-gray-700">
           Student Mobile No. (Length of 10)
+          <span className="text-red-500">*</span>
         </label>
         <input
           name="mobileNo"
@@ -149,7 +200,9 @@ function StudentForm() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Student E-Mail Id</label>
+        <label className="block text-gray-700">
+          Student E-Mail Id<span className="text-red-500">*</span>
+        </label>
         <input
           name="email"
           type="email"
@@ -161,7 +214,9 @@ function StudentForm() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Payment (Online or Cash)</label>
+        <label className="block text-gray-700">
+          Payment (Online or Cash)<span className="text-red-500">*</span>
+        </label>
         <select
           name="payment"
           value={student.payment}
@@ -176,6 +231,32 @@ function StudentForm() {
           <option value="Cash">Cash</option>
         </select>
       </div>
+
+      {student.payment === "Online" && (
+        <>
+          <div className="mb-4">
+            <div className="mb-4">
+              <label className="block text-gray-700">QR CODE</label>
+              <img
+                src="./qr.png"
+                alt="Payment Proof"
+                className="w-2/4 m-auto h-auto rounded-md mb-2"
+              />
+            </div>
+            <label className="block text-gray-700">
+              Transaction ID <span className="text-red-500">*</span>
+            </label>
+            <input
+              name="transactionId"
+              value={student.transactionId}
+              onChange={handleChange}
+              placeholder="Transaction ID"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              required={student.payment === "Online"}
+            />
+          </div>
+        </>
+      )}
       <button
         type="submit"
         className="w-full bg-primary text-white py-2 px-4 rounded-md"

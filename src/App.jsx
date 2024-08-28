@@ -1,7 +1,7 @@
 // frontend/src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StudentForm from './components/StudentForm';
 import StudentList from './components/StudentList';
 

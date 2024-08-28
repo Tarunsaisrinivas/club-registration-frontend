@@ -22,7 +22,7 @@ function StudentList() {
     const deleteStudent = async (id) => {
         if (window.confirm("Are you sure you want to delete this student?")) {
             try {
-                await axios.delete(`http://localhost:5000/api/students/${id}`);
+                await axios.delete(`https://club-registration-backend.vercel.app/api/students/${id}`);
                 setStudents(students.filter(student => student._id !== id));
             } catch (error) {
                 console.error('Error deleting student:', error);

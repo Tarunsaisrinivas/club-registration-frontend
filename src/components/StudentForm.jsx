@@ -243,6 +243,7 @@ function StudentForm() {
           <div className="mb-4">
             <div className="mb-4">
               <label className="block text-gray-700">QR CODE</label>
+              <p className="flex justify-center">₹850/- </p>
               <img
                 src="./QRCODE.jpg"
                 alt="Payment Proof"

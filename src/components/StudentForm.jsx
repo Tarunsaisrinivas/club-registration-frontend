@@ -7,7 +7,7 @@ function StudentForm() {
     name: "",
     year: "",
     branch: "",
-    section: "",
+    regno: "",
     collegeName: "",
     gender: "",
     mobileNo: "",
@@ -68,7 +68,7 @@ function StudentForm() {
         name: "",
         year: "",
         branch: "",
-        section: "",
+        regno: "",
         collegeName: "",
         gender: "",
         mobileNo: "",
@@ -91,7 +91,7 @@ function StudentForm() {
       className="max-w-lg mx-auto p-8 bg-white shadow-md rounded"
     >
       <h1 className="text-2xl font-bold mb-4 text-primary">
-        Student Registration
+        Hackathon Registration
       </h1>
       <div className="mb-4">
         <label className="block text-gray-700">
@@ -162,7 +162,7 @@ function StudentForm() {
         </label>
         <input
           type="text"
-          name="registrationNumber"
+          name="regno"
           value={student.regno}
           onChange={handleChange}
           placeholder="Enter Registration Number"

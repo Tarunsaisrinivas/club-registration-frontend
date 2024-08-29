@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { IoCopyOutline } from "react-icons/io5";
 
 function StudentForm() {
   const [student, setStudent] = useState({
@@ -14,6 +15,17 @@ function StudentForm() {
     payment: "",
     transactionId: "",
   });
+
+  const email = "8121702286@ybl";
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      alert("UPI ID copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,17 +47,18 @@ function StudentForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a copy of the student object to modify
     let studentData = { ...student };
 
-    // If payment method is "Cash", remove the transactionId from the student data
     if (student.payment === "Cash") {
       delete studentData.transactionId;
     }
 
     try {
       // Send the student data to the backend
-      await axios.post("https://srkrcodigclub-backend.vercel.app/api/students/add", studentData);
+      await axios.post(
+        "https://srkrcodigclub-backend.vercel.app/api/students/add",
+        studentData
+      );
 
       // Alert the user that the student was added successfully
       alert("Student added successfully!");
@@ -144,26 +157,20 @@ function StudentForm() {
 
       <div className="mb-4">
         <label className="block text-gray-700">
-          Section (A/B/C/D/E)
+          Registration Number
           <span className="text-red-500">*</span>
         </label>
-        <select
-          name="section"
-          value={student.section}
+        <input
+          type="text"
+          name="registrationNumber"
+          value={student.regno}
           onChange={handleChange}
+          placeholder="Enter Registration Number"
           className="w-full px-3 py-2 border border-gray-300 rounded-md"
           required
-        >
-          <option value="" disabled>
-            Select Section
-          </option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="D">D</option>
-          <option value="E">E</option>
-        </select>
+        />
       </div>
+
       <div className="mb-4">
         <label className="block text-gray-700">
           Gender (M/F)
@@ -228,7 +235,6 @@ function StudentForm() {
             Select Payment
           </option>
           <option value="Online">Online</option>
-          <option value="Cash">Cash</option>
         </select>
       </div>
 
@@ -238,10 +244,25 @@ function StudentForm() {
             <div className="mb-4">
               <label className="block text-gray-700">QR CODE</label>
               <img
-                src="./qr.png"
+                src="./QRCODE.jpg"
                 alt="Payment Proof"
                 className="w-2/4 m-auto h-auto rounded-md mb-2"
               />
+              <div className="flex items-center bg-gray-100 border border-gray-300 rounded-2xl p-2">
+                <input
+                  type="text"
+                  value="8121702286@ybl"
+                  readOnly
+                  className="flex-grow px-2 py-2 bg-transparent border-none focus:outline-none text-gray-800"
+                />
+                <button
+                  onClick={handleCopy}
+                  className="ml-2 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  title="Copy to Clipboard"
+                >
+                  <IoCopyOutline className="w-5 h-5" />
+                </button>
+              </div>
             </div>
             <label className="block text-gray-700">
               Transaction ID <span className="text-red-500">*</span>

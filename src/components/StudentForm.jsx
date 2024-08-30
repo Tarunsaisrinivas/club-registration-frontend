@@ -14,6 +14,7 @@ function StudentForm() {
     email: "",
     payment: "",
     transactionId: "",
+    teamName: "",
   });
 
   const email = "8121702286@ybl";
@@ -37,7 +38,7 @@ function StudentForm() {
       setStudent({
         ...student,
         [name]:
-          name === "collegeName" || name === "name"
+          name === "teamName" || name === "collegeName" || name === "name"
             ? value.toUpperCase()
             : value,
       });
@@ -59,10 +60,8 @@ function StudentForm() {
         studentData
       );
 
-     
       alert("Student added successfully!");
 
-     
       setStudent({
         name: "",
         year: "",
@@ -74,6 +73,7 @@ function StudentForm() {
         email: "",
         payment: "",
         transactionId: "",
+        teamName: "",
       });
     } catch (error) {
       // Log the error to the console for debugging
@@ -150,6 +150,20 @@ function StudentForm() {
           onChange={handleChange}
           placeholder="College Name"
           className="w-full px-3 uppercase py-2 border border-gray-300 rounded-md"
+          required
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700">
+          Team Name<span className="text-red-500">*</span>
+        </label>
+        <input
+          name="teamName"
+          value={student.teamName}
+          onChange={handleChange}
+          placeholder="Team Name"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md"
           required
         />
       </div>

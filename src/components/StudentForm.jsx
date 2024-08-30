@@ -54,16 +54,15 @@ function StudentForm() {
     }
 
     try {
-      // Send the student data to the backend
       await axios.post(
         "https://srkrcodigclub-backend.vercel.app/api/students/add",
         studentData
       );
 
-      // Alert the user that the student was added successfully
+     
       alert("Student added successfully!");
 
-      // Reset the form fields after successful submission
+     
       setStudent({
         name: "",
         year: "",

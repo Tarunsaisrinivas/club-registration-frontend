@@ -15,6 +15,8 @@ function StudentForm() {
     payment: "",
     transactionId: "",
     teamName: "",
+    tshirt:"",
+    teamregno:"",
   });
 
   const email = "8121702286@ybl";
@@ -38,7 +40,7 @@ function StudentForm() {
       setStudent({
         ...student,
         [name]:
-          name === "teamName" || name === "collegeName" || name === "name"
+          name === "teamName" || name === "collegeName" || name === "name" ||name === "teamregno"
             ? value.toUpperCase()
             : value,
       });
@@ -74,6 +76,8 @@ function StudentForm() {
         payment: "",
         transactionId: "",
         teamName: "",
+        tshirt:"",
+        teamregno:"",
       });
     } catch (error) {
       // Log the error to the console for debugging
@@ -168,6 +172,46 @@ function StudentForm() {
         />
       </div>
 
+      {/* Shirt size */}
+      <div className="mb-4">
+        <label className="block text-gray-700">
+          Tshirt Size
+          <span className="text-red-500">*</span>
+        </label>
+        <select
+          name="tshirt"
+          value={student.tshirt}
+          onChange={handleChange}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          required
+        >
+          <option value="" disabled>
+            Select Tshirt
+          </option>
+          <option value="s">S</option>
+          <option value="m">M</option>
+          <option value="l">L</option>
+          <option value="xl">XL</option>
+          <option value="xxl">XXL</option>
+        </select>
+      </div>
+{/*  */}
+<div className="mb-4">
+        <label className="block text-gray-700">
+          Team Leader Registration Number
+          <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="teamregno"
+          value={student.teamregno}
+          onChange={handleChange}
+          placeholder="Enter Registration Number"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          required
+        />
+      </div>
+
       <div className="mb-4">
         <label className="block text-gray-700">
           Registration Number
@@ -183,6 +227,7 @@ function StudentForm() {
           required
         />
       </div>
+     
 
       <div className="mb-4">
         <label className="block text-gray-700">

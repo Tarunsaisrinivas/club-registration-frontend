@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 function Authpage({ setIsAuthenticated }) {
   const [inputCode, setInputCode] = useState("");
   
-  
   const secretCode = "clubsecret";
 
   const navigate = useNavigate();

@@ -74,6 +74,8 @@ function StudentList() {
                             <th className="w-1/12 px-4 py-2 text-left">RegNo</th>
                             <th className="w-1/12 px-4 py-2 text-left">College Name</th>
                             <th className="w-1/12 px-4 py-2 text-left">Team Name</th>
+                            <th className="w-1/12 px-4 py-2 text-left">Team Leader Regno</th>
+                            <th className="w-1/12 px-4 py-2 text-left">Tshirt</th>
                             <th className="w-1/12 px-4 py-2 text-left">Gender</th>
                             <th className="w-1/6 px-4 py-2 text-left">Mobile No.</th>
                             <th className="w-1/4 px-4 py-2 text-left">Email</th>
@@ -92,6 +94,8 @@ function StudentList() {
                                     <td className="px-4 py-2">{student.regno}</td>
                                     <td className="px-4 py-2">{student.collegeName}</td> 
                                     <td className="px-4 py-2">{student.teamName}</td>
+                                    <td className="px-4 py-2">{student.teamregno}</td>
+                                    <td className="px-4 py-2">{student.tshirt}</td>
                                     <td className="px-4 py-2">{student.gender}</td>
                                     <td className="px-4 py-2">{student.mobileNo}</td>
                                     <td className="px-4 py-2">{student.email}</td>

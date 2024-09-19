@@ -6,6 +6,7 @@ import StudentForm from "./components/StudentForm";
 import StudentList from "./components/StudentList";
 import Authpage from "./components/Authpage";
 import PrivateRoute from "./components/PrivateRoute";
+import Loading from "./components/Loading";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,7 +14,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<StudentForm />} />
+        <Route path="/" element={<Loading />} />
+        <Route path="/fdsljk;" element={<StudentForm />} />
         <Route
           path="/auth"
           element={<Authpage setIsAuthenticated={setIsAuthenticated} />}

@@ -15,7 +15,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Loading />} />
-        <Route path="/fdsljk;" element={<StudentForm />} />
+        <Route path="/formofstudent" element={<StudentForm />} />
         <Route
           path="/auth"
           element={<Authpage setIsAuthenticated={setIsAuthenticated} />}
